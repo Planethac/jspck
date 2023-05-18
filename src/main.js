@@ -1,3 +1,4 @@
+// Ver 0.0.2
 // Import Shit
 const fs = require('fs');
 
