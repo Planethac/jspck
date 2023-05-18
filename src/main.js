@@ -1,37 +1,39 @@
-// App Goals:
-// Make a WORKING Pacakge controle System
-//
-// TODO Start with The Project
-// ! Dont ask Other Peopel The help You, You not that bad at coding my friend!
-// as motivation take this: https://music.apple.com/library/playlist/p.oOzAaQPHE4J4qJA
-
+// Import Shit
 const fs = require('fs');
 
+// Define Variables
 let pckpth = "";
+let pckpthfs = "";
 let pclang = "";
 
+// Define Readline Fuctions
+// It exsits twice because im stupid and was under time presure and that just worked will be fixed
 const readline = require('readline').createInterface ({
     input: process.stdin,
     output: process.stdout 
 });
 
+// Executer
+getpth();
+
 // Get Path For The Folder
 function getpth() {
     readline.question('Folder path: ', path => {
         pckpth = `./${path}`;
-        readline.close();
+        makdir();
     });
 }
 
 // Language Selector
 function sllang() {
     console.log("[1] JS");
-    console.log("[2] NODE JS");
+    console.log("[2] HTML");
     console.log("[3] PYTHON");    
     readline.question('Select Language: ', lang => {
-        pclang = lang;
+        pclang = `${lang}`;
+        sllangdec();
         readline.close();
-    })
+    });
 }
 
 // Creates The Folder
@@ -42,18 +44,19 @@ function makdir() {
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log(`Succefuly created ${pckpth} !`);
+                    console.log(`Succsesfully created ${pckpth} !`);
                 }
             });
         } else {
-            console.log(`Directory ${pckpth} already exists !`)
+            console.log(`Directory ${pckpth} already exists !`);
         }
     })
+    setTimeout(sllang, 1000);
 }
 
 // Make Files and Folders for JS Package Type
 function jsdep() {
-    fs.access(pckpth + "/src", (error) => {
+    fs.access(pckpthfs = `${pckpth}/src`, (error) => {
         if (error) {
             fs.mkdir(pckpth , (error) => {
                 if (error) {
@@ -65,9 +68,63 @@ function jsdep() {
         } else {
             console.log(`Directory ${pckpth} already exists !`)
         }
-    })
-    fs.writeFile(pckpth + "/src/main.js", "", function (err) {
-        if (err) throw err;
-        console.log('Created main.js !')
-    })
+    });
+}
+
+// Makes Files and Folders for HTML Package Type
+function htmldep() {
+    fs.access(pckpthfs = `${pckpth}/html`, (error) => {
+        if (error) {
+            fs.mkdir(pckpth , (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(`Succefuly created ${pckpth} !`);
+                }
+            });
+        } else {
+            console.log(`Directory ${pckpth} already exists !`)
+        }
+    });
+
+    fs.access(pckpthfs = `${pckpth}/js`, (error) => {
+        if (error) {
+            fs.mkdir(pckpth , (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(`Succefuly created ${pckpth} !`);
+                }
+            });
+        } else {
+            console.log(`Directory ${pckpth} already exists !`)
+        }
+    });
+
+    fs.access(pckpthfs = `${pckpth}/css`, (error) => {
+        if (error) {
+            fs.mkdir(pckpth , (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(`Succefuly created ${pckpth} !`);
+                }
+            });
+        } else {
+            console.log(`Directory ${pckpth} already exists !`)
+        }
+    });
+}
+
+// Runs The correct dep function
+function sllangdec() {
+    if (pclang == "1") {
+        jsdep();
+    }
+    if (pclang == "2") {
+        htmldep();
+    }
+    if (pclang == "3") {
+        console.log("WIP!");
+    }
 }
