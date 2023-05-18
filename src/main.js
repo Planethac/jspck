@@ -7,28 +7,67 @@
 
 const fs = require('fs');
 
-let pckpth = ".";
+let pckpth = "";
+let pclang = "";
 
 const readline = require('readline').createInterface ({
     input: process.stdin,
     output: process.stdout 
 });
 
-readline.question('Folder path: ', path => {
-    pckpth = `./${path}`;
-    readline.close();
-});
+// Get Path For The Folder
+function getpth() {
+    readline.question('Folder path: ', path => {
+        pckpth = `./${path}`;
+        readline.close();
+    });
+}
 
-fs.access(pckpth, (error) => {
-    if (error) {
-        fs.mkdir(pckpth , (error) => {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log(`Succefuly created ${pckpth} !`);
-            }
-        });
-    } else {
-        console.log(`Directory ${pckpth} already exists !`)
-    }
-})
+// Language Selector
+function sllang() {
+    console.log("[1] JS");
+    console.log("[2] NODE JS");
+    console.log("[3] PYTHON");    
+    readline.question('Select Language: ', lang => {
+        pclang = lang;
+        readline.close();
+    })
+}
+
+// Creates The Folder
+function makdir() {
+    fs.access(pckpth, (error) => {
+        if (error) {
+            fs.mkdir(pckpth , (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(`Succefuly created ${pckpth} !`);
+                }
+            });
+        } else {
+            console.log(`Directory ${pckpth} already exists !`)
+        }
+    })
+}
+
+// Make Files and Folders for JS Package Type
+function jsdep() {
+    fs.access(pckpth + "/src", (error) => {
+        if (error) {
+            fs.mkdir(pckpth , (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(`Succefuly created ${pckpth} !`);
+                }
+            });
+        } else {
+            console.log(`Directory ${pckpth} already exists !`)
+        }
+    })
+    fs.writeFile(pckpth + "/src/main.js", "", function (err) {
+        if (err) throw err;
+        console.log('Created main.js !')
+    })
+}
