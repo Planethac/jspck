@@ -117,6 +117,35 @@ function htmldep() {
     });
 }
 
+function pythondep() {
+    fs.access(pckpthfs = `${pckpth}/src`, (error) => {
+        if (error) {
+            fs.mkdir(pckpth , (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(`Succefuly created ${pckpth} !`);
+                }
+            });
+        } else {
+            console.log(`Directory ${pckpth} already exists !`)
+        }
+    });
+    fs.access(pckpthfs = `${pckpth}/pymod`, (error) => {
+        if (error) {
+            fs.mkdir(pckpth , (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(`Succefuly created ${pckpth} !`);
+                }
+            });
+        } else {
+            console.log(`Directory ${pckpth} already exists !`)
+        }
+    });
+}
+
 // Runs The correct dep function
 function sllangdec() {
     if (pclang == "1") {
@@ -126,6 +155,6 @@ function sllangdec() {
         htmldep();
     }
     if (pclang == "3") {
-        console.log("WIP!");
+        pythondep();
     }
 }
