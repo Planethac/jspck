@@ -1,0 +1,12 @@
+# Config for my deployment system [Just Ignoe]
+cfg {
+    autodeploy: yes,
+    server: s4,
+    dir: /projects/whatever/si
+    dpfile: /inf/dpl/si/config.inf
+}
+
+onfail {
+    run: pautomail -autoerror -logfile /inf/dpl/si/log/latest.log
+    run: forever start /projects/whatever/si/src/main.js --sourceDir /projects/whatever/si/src
+}
